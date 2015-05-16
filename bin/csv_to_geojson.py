@@ -1,7 +1,11 @@
 import csv
 import sys
 import os.path
+import inspect
 import json
+
+DATA_DIR= os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(inspect.getfile(inspect.currentframe())))), "data")
 
 def write_to_geojson(infile, outfile="trees.geojson"):
     data = {}
@@ -30,7 +34,8 @@ def write_to_geojson(infile, outfile="trees.geojson"):
                 }
             }
             data["features"].append(new_row)
-            
+
+    outfile = os.path.join(DATA_DIR, outfile)
     with open(outfile, "w") as geojson:
         geojson.write(json.dumps(data))
 
@@ -45,6 +50,7 @@ def write_to_json(infile, outfile="trees.json"):
             new_row = [float(lat), float(long), row["DIAMETRE"]]
             data.append(new_row)
 
+    outfile = os.path.join(DATA_DIR, outfile)
     with open(outfile, "w") as jsn:
         jsn.write(json.dumps(data))
 

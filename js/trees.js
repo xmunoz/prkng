@@ -1,6 +1,6 @@
 (function() {
     L.mapbox.accessToken = 'pk.eyJ1IjoieG11bm96IiwiYSI6IkN5MzZ1Y3MifQ.7lRhW5rm5NNZrt7zlIyoJQ';
-    $.get("/prkng/trees.json", function(data) {
+    $.get("/prkng/data/trees.json", function(data) {
         var map = L.mapbox.map('map', 'xmunoz.m6ne5bbl').setView([46.85, -71.29], 10);
         var markers = new L.MarkerClusterGroup({ showCoverageOnHover: false });
 
