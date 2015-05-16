@@ -7,7 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/prkng/trees.css" rel="stylesheet">
     <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
   </head>
   <body>
       <nav class="navbar navbar-static-top navbar-inverse" role="navigation">
@@ -17,6 +20,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
     <script src='/prkng/trees.js'></script>
   </body>
 </html>
