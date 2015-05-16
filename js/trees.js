@@ -16,7 +16,7 @@
         }
         map.addLayer(markers);
     });
-    //var map = L.mapbox.map('map', 'xmunoz.m6ne5bbl', {'worldCopyJump': true}).setView([49, -75], 6); 
+    //var map = L.mapbox.map('map', 'xmunoz.m6ne5bbl', {'worldCopyJump': true}).setView([49, -75], 6);
     //var featureLayer = L.mapbox.featureLayer().addTo(map);
     //featureLayer.loadURL('trees1.geojson');
 })();
