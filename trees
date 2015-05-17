@@ -31,12 +31,12 @@
       </div>
       <div class="form-group">
         <label id="district-label">Districts</label>
-        <div><input type="checkbox" name="district" onclick="showTrees();" value="ssc" checked> Sainte-Foy–Sillery–Cap-Rouge </div>
-        <div><input type="checkbox" name="district" onclick="showTrees();" value="cha" checked> Charlesbourg </div>
-        <div><input type="checkbox" name="district" onclick="showTrees();" value="bea" checked> Beauport </div>
-        <div><input type="checkbox" name="district" onclick="showTrees();" value="riv" checked> Les Rivières </div>
-        <div><input type="checkbox" name="district" onclick="showTrees();" value="cil" checked> La Cité-Limoilou </div>
-        <div><input type="checkbox" name="district" onclick="showTrees();" value="hsc" checked> La Haute-Saint-Charles </div>
+        <div><input type="checkbox" name="district" value="ssc" checked> Sainte-Foy–Sillery–Cap-Rouge </div>
+        <div><input type="checkbox" name="district" value="cha" checked> Charlesbourg </div>
+        <div><input type="checkbox" name="district" value="bea" checked> Beauport </div>
+        <div><input type="checkbox" name="district" value="riv" checked> Les Rivières </div>
+        <div><input type="checkbox" name="district" value="cil" checked> La Cité-Limoilou </div>
+        <div><input type="checkbox" name="district" value="hsc" checked> La Haute-Saint-Charles </div>
       </div>
     </form>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
