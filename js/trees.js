@@ -38,6 +38,7 @@
             }
         }
         for (var i = 0; i < district_filters.length; i++) {
+            //pass
         }
 
         return list;
@@ -48,9 +49,16 @@
         overlays.clearLayers();
         var clusterGroup = new L.MarkerClusterGroup().addTo(overlays);
         layers.eachLayer(function(layer) {
+            // location type filter
             if (list.location.indexOf(layer.feature.properties.location_type) !== -1) {
-                if (diameterSelected(list.diameter_ranges, layer.feature.properties.diameter))
+                // diameter filter
+                if (diameterSelected(list.diameter_ranges, layer.feature.properties.diameter)) {
+                    var content = '<p>' + layer.feature.properties.latin_name + '<br \/>' +
+                            '<p>Location: ' + layer.feature.properties.district+ '<br \/>' +
+                            '<p>Diameter: ' + layer.feature.properties.diameter + '<br \/>';
+                    layer.bindPopup(content);
                     clusterGroup.addLayer(layer);
+                }
             }
         });
     }
@@ -58,13 +66,14 @@
     function diameterSelected(ranges, diameter) {
         var null_index = ranges.indexOf("na");
 
+        // first test null
         if (Number(diameter) !== diameter) {
             if (null_index != -1)
                 return true;
             return false;
         }
 
-        // then test actually ranges
+        // then test actual ranges
         for (var i = 0; i < ranges.length; i++) {
             if (ranges[i].length == 2 && diameter >= ranges[i][0] && diameter <= ranges[i][1]) {
                 return true;
