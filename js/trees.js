@@ -1,22 +1,80 @@
 (function() {
     L.mapbox.accessToken = 'pk.eyJ1IjoieG11bm96IiwiYSI6IkN5MzZ1Y3MifQ.7lRhW5rm5NNZrt7zlIyoJQ';
-    $.get("/prkng/data/trees.json", function(data) {
-        var map = L.mapbox.map('map', 'xmunoz.m6ne5bbl').setView([46.85, -71.29], 10);
-        var markers = new L.MarkerClusterGroup({ showCoverageOnHover: false });
+    var map = L.mapbox.map('map')
+        .setView([46.85, -71.29], 10)
+        .addLayer(L.mapbox.tileLayer("xmunoz.m6ne5bbl"));
 
-        for (var i = 0; i < data.length; i++) {
-            var a = data[i];
-            var title = a[2];
-            var marker = L.marker(new L.LatLng(a[0], a[1]), {
-              icon: L.mapbox.marker.icon({'marker-symbol': 'park', 'marker-size': 'large', 'marker-color': '7ec9b1'}),
-              title: title
-            });
-            marker.bindPopup("tree");
-            markers.addLayer(marker);
+    var overlays = L.layerGroup().addTo(map);
+    var layers;
+
+    L.mapbox.featureLayer()
+        .loadURL('/prkng/data/trees.geojson')
+        .on('ready', function(e) {
+            layers = e.target;
+            showTrees();
+        });
+
+    var type_filters = $("#filters .form-group [name='type']");
+    var diameter_filters = $("#filters .form-group [name='diameter']");
+    var district_filters = $("#filters .form-group [name='district']");
+
+    function getCheckedFilters() {
+        var list = {};
+        list.location = []
+        list.diameter_ranges = []
+        for (var i = 0; i < type_filters.length; i++)
+            if (type_filters[i].checked) list.location.push(type_filters[i].value);
+
+        for (var i = 0; i < diameter_filters.length; i++) {
+            if (diameter_filters[i].checked) {
+                // if diameter is unavailable, add null
+                if (diameter_filters[i].value == "na") {
+                    list.diameter_ranges.push("na");
+                }
+                else {
+                    var limits = diameter_filters[i].value.split("-")
+                    list.diameter_ranges.push(limits);
+                }
+            }
         }
-        map.addLayer(markers);
+        for (var i = 0; i < district_filters.length; i++) {
+        }
+
+        return list;
+    }
+
+    function showTrees() {
+        var list = getCheckedFilters();
+        overlays.clearLayers();
+        var clusterGroup = new L.MarkerClusterGroup().addTo(overlays);
+        layers.eachLayer(function(layer) {
+            if (list.location.indexOf(layer.feature.properties.location_type) !== -1) {
+                if (diameterSelected(list.diameter_ranges, layer.feature.properties.diameter))
+                    clusterGroup.addLayer(layer);
+            }
+        });
+    }
+
+    function diameterSelected(ranges, diameter) {
+        var null_index = ranges.indexOf("na");
+
+        if (Number(diameter) !== diameter) {
+            if (null_index != -1)
+                return true;
+            return false;
+        }
+
+        // then test actually ranges
+        for (var i = 0; i < ranges.length; i++) {
+            if (ranges[i].length == 2 && diameter >= ranges[i][0] && diameter <= ranges[i][1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    $("input[type=checkbox]" ).click(function() {
+        showTrees();
     });
-    //var map = L.mapbox.map('map', 'xmunoz.m6ne5bbl', {'worldCopyJump': true}).setView([49, -75], 6);
-    //var featureLayer = L.mapbox.featureLayer().addTo(map);
-    //featureLayer.loadURL('trees1.geojson');
+
 })();

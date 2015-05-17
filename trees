@@ -17,26 +17,26 @@
     <form id="filters">
       <div class="form-group">
         <label id="location-label">Type Lieu</label>
-          <div><input type="checkbox" name="filters" onclick="showTrees();" value="voie" checked> Voie publique </div>
-          <div><input type="checkbox" name="filters" onclick="showTrees();" value="lieu" checked> Lieu public </div>
-          <div><input type="checkbox" name="filters" onclick="showTrees();" value="non" checked> Non Disponible </div>
+          <div><input type="checkbox" name="type" value="Voie publique" checked> Voie publique </div>
+          <div><input type="checkbox" name="type" value="Lieu public" checked> Lieu public </div>
+          <div><input type="checkbox" name="type" value="Non disponible" checked> Non Disponible </div>
       </div>
       <div class="form-group">
         <label id="tree-diameter-label">Diamètre (m)</label>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="<30" checked> <30 </div>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="<60" checked> 30-60 </div>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="<90" checked> 61-90 </div>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value=">90" checked> >90 </div>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="na" checked> Non Disponible </div>
+        <div><input type="checkbox" name="diameter" value="0-30" checked> <30 </div>
+        <div><input type="checkbox" name="diameter" value="31-60" checked> 30-60 </div>
+        <div><input type="checkbox" name="diameter" value="61-90" checked> 61-90 </div>
+        <div><input type="checkbox" name="diameter" value="91-1000" checked> >90 </div>
+        <div><input type="checkbox" name="diameter" value="na" checked> Non Disponible </div>
       </div>
       <div class="form-group">
         <label id="district-label">Districts</label>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="ssc" checked> Sainte-Foy–Sillery–Cap-Rouge </div>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="cha" checked> Charlesbourg </div>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="bea" checked> Beauport </div>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="riv" checked> Les Rivières </div>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="cil" checked> La Cité-Limoilou </div>
-        <div><input type="checkbox" name="filters" onclick="showTrees();" value="hsc" checked> La Haute-Saint-Charles </div>
+        <div><input type="checkbox" name="district" onclick="showTrees();" value="ssc" checked> Sainte-Foy–Sillery–Cap-Rouge </div>
+        <div><input type="checkbox" name="district" onclick="showTrees();" value="cha" checked> Charlesbourg </div>
+        <div><input type="checkbox" name="district" onclick="showTrees();" value="bea" checked> Beauport </div>
+        <div><input type="checkbox" name="district" onclick="showTrees();" value="riv" checked> Les Rivières </div>
+        <div><input type="checkbox" name="district" onclick="showTrees();" value="cil" checked> La Cité-Limoilou </div>
+        <div><input type="checkbox" name="district" onclick="showTrees();" value="hsc" checked> La Haute-Saint-Charles </div>
       </div>
     </form>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
