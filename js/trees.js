@@ -5,12 +5,20 @@
         .addLayer(L.mapbox.tileLayer("xmunoz.m6ne5bbl"));
 
     var overlays = L.layerGroup().addTo(map);
-    var layers;
+    var treeLayers;
+    var districtLayers;
+
+    L.mapbox.featureLayer()
+        .loadURL('/prkng/data/districts.geojson')
+        .on('ready', function(e) {
+            districtLayers = e.target;
+        })
+        .addTo(map);
 
     L.mapbox.featureLayer()
         .loadURL('/prkng/data/trees.geojson')
         .on('ready', function(e) {
-            layers = e.target;
+            treeLayers = e.target;
             showTrees();
         });
 
@@ -22,6 +30,8 @@
         var list = {};
         list.location = []
         list.diameter_ranges = []
+        list.districts = []
+
         for (var i = 0; i < type_filters.length; i++)
             if (type_filters[i].checked) list.location.push(type_filters[i].value);
 
@@ -37,28 +47,50 @@
                 }
             }
         }
+
+        // get selected districts
+        var districts = [];
         for (var i = 0; i < district_filters.length; i++) {
-            //pass
+            if (district_filters[i].checked) districts.push(district_filters[i].value);
         }
+        // add selected district layers to list.districts
+        districtLayers.eachLayer(function(dLayer) {
+            if (districts.indexOf(dLayer.feature.properties.abbr) !== -1) list.districts.push(dLayer);
+        });
 
         return list;
+    }
+
+    function districtFilter(districts, tree) {
+        for (var i = 0; i < districts.length; i++) {
+            if (turf.inside(tree.feature, districts[i].feature)) return true;
+        }
+        return false;
+    }
+
+    function locationTypeFilter(location, tree) {
+        return location.indexOf(tree.feature.properties.location_type) !== -1;
+    }
+
+    function diameterFilter(diameter_ranges, tree) {
+        return diameterSelected(diameter_ranges, tree.feature.properties.diameter);
     }
 
     function showTrees() {
         var list = getCheckedFilters();
         overlays.clearLayers();
         var clusterGroup = new L.MarkerClusterGroup().addTo(overlays);
-        layers.eachLayer(function(layer) {
-            // location type filter
-            if (list.location.indexOf(layer.feature.properties.location_type) !== -1) {
-                // diameter filter
-                if (diameterSelected(list.diameter_ranges, layer.feature.properties.diameter)) {
-                    var content = '<p>' + layer.feature.properties.latin_name + '<br \/>' +
-                            '<p>Location: ' + layer.feature.properties.district+ '<br \/>' +
-                            '<p>Diameter: ' + layer.feature.properties.diameter + '<br \/>';
-                    layer.bindPopup(content);
-                    clusterGroup.addLayer(layer);
-                }
+        treeLayers.eachLayer(function(layer) {
+            var passesAllFilters = locationTypeFilter(list.location, layer)
+                                    && diameterFilter(list.diameter_ranges, layer)
+                                    && districtFilter(list.districts, layer);
+
+            if (passesAllFilters) {
+                var content = '<p>' + layer.feature.properties.latin_name + '<br \/>' +
+                        '<p>Location: ' + layer.feature.properties.district+ '<br \/>' +
+                        '<p>Diameter: ' + layer.feature.properties.diameter + '<br \/>';
+                layer.bindPopup(content);
+                clusterGroup.addLayer(layer);
             }
         });
     }
