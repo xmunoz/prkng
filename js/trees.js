@@ -1,4 +1,5 @@
 (function() {
+    # this is a public access token
     L.mapbox.accessToken = 'pk.eyJ1IjoieG11bm96IiwiYSI6IkN5MzZ1Y3MifQ.7lRhW5rm5NNZrt7zlIyoJQ';
     var map = L.mapbox.map('map')
         .setView([46.85, -71.29], 11)
