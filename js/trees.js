@@ -1,7 +1,7 @@
 (function() {
     L.mapbox.accessToken = 'pk.eyJ1IjoieG11bm96IiwiYSI6IkN5MzZ1Y3MifQ.7lRhW5rm5NNZrt7zlIyoJQ';
     var map = L.mapbox.map('map')
-        .setView([46.85, -71.29], 10)
+        .setView([46.85, -71.29], 11)
         .addLayer(L.mapbox.tileLayer("xmunoz.m6ne5bbl"));
 
     var overlays = L.layerGroup().addTo(map);
